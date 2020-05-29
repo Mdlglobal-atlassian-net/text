@@ -194,6 +194,11 @@ Status SentenceFragmenter::FindFragments(
     // Add a new sentence fragment up to this boundary.
     TF_RETURN_IF_ERROR(FillInFragmentFields(i_start, match, &fragment));
 
+    string f = "";
+    for (int i = i_start; i < fragment.limit; i++) {
+      f += document_->tokens()[i].word() + " ";
+    }
+
     result->push_back(std::move(fragment));
     i_start = match.limit_index();
   }

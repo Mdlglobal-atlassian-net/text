@@ -503,13 +503,22 @@ py_library(
 py_tf_text_library(
     name = "sentence_breaking_ops",
     srcs = ["python/ops/sentence_breaking_ops.py"],
-    cc_op_defs = ["core/ops/sentence_breaking_ops.cc"],
+    cc_op_defs = [
+        "core/ops/sentence_breaking_ops.cc",
+        "core/ops/sentence_breaking_ops_v2.cc",
+    ],
     cc_op_kernels = [
         "//tensorflow_text/core/kernels:sentence_breaking_kernels",
-        # tf:lib tensorflow dep,
+        "//tensorflow_text/core/kernels:sentence_breaking_kernels_v2",
     ],
     deps = [
         ":regex_split_ops",
+        "//third_party/py/absl/logging",
+        # tf:lib tensorflow dep,
+        # python:dtypes tensorflow dep,
+        # python:math_ops tensorflow dep,
+        # python:string_ops tensorflow dep,
+        # python/ops/ragged:ragged_map_ops tensorflow dep,
         # python/ops/ragged:ragged_tensor tensorflow dep,
     ],
 )
@@ -520,8 +529,50 @@ py_test(
     srcs = ["python/ops/sentence_breaking_ops_test.py"],
     srcs_version = "PY2AND3",
     deps = [
-        ":ragged_test_util",
         ":sentence_breaking_ops",
+        "//third_party/py/absl/logging",
+        "@absl_py//absl/testing:parameterized",
+        # python:client_testlib tensorflow dep,
+        # python:constant_op tensorflow dep,
+        # python:dtypes tensorflow dep,
+        # python:errors tensorflow dep,
+        # python:framework_test_lib tensorflow dep,
+        # python:string_ops tensorflow dep,
+        # python/ops/ragged:ragged_factory_ops tensorflow dep,
+        # python/ops/ragged:ragged_map_ops tensorflow dep,
+        # python/ops/ragged:ragged_tensor tensorflow dep,
+    ],
+)
+
+py_tf_text_library(
+    name = "sentence_breaking_ops_v2",
+    srcs = ["python/ops/sentence_breaking_ops_v2.py"],
+    cc_op_defs = [
+        "core/ops/sentence_breaking_ops_v2.cc",
+    ],
+    cc_op_kernels = [
+        "//tensorflow_text/core/kernels:sentence_breaking_kernels_v2",
+    ],
+    deps = [
+        ":regex_split_ops",
+        "//third_party/py/absl/logging",
+        # tf:lib tensorflow dep,
+        # python:dtypes tensorflow dep,
+        # python:math_ops tensorflow dep,
+        # python:string_ops tensorflow dep,
+        # python/ops/ragged:ragged_map_ops tensorflow dep,
+        # python/ops/ragged:ragged_tensor tensorflow dep,
+    ],
+)
+
+py_test(
+    name = "sentence_breaking_ops_v2_test",
+    size = "medium",
+    srcs = ["python/ops/sentence_breaking_ops_v2_test.py"],
+    srcs_version = "PY2AND3",
+    deps = [
+        ":sentence_breaking_ops_v2",
+        "//third_party/py/absl/logging",
         "@absl_py//absl/testing:parameterized",
         # python:client_testlib tensorflow dep,
         # python:constant_op tensorflow dep,

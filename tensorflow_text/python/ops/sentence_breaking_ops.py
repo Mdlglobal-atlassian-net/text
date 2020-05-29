@@ -72,7 +72,7 @@ class RegexSentenceBreaker(SentenceBreakerWithOffsets):
   """
 
   def __init__(self, new_sentence_regex=None):
-    r"""Creates an instance of `NewLineSentenceBreaker`.
+    r"""Creates an instance of `RegexSentenceBreaker`.
 
     Args:
       new_sentence_regex: (optional) A string containing the regex pattern of a
