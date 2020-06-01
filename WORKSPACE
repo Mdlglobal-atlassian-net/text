@@ -53,6 +53,16 @@ http_archive(
 )
 
 http_archive(
+    name = "com_google_protobuf",
+    sha256 = "cfcba2df10feec52a84208693937c17a4b5df7775e1635c1e3baffc487b24c9b",
+    strip_prefix = "protobuf-3.9.2",
+    urls = [
+        "https://storage.googleapis.com/mirror.tensorflow.org/github.com/protocolbuffers/protobuf/archive/v3.9.2.zip",
+        "https://github.com/protocolbuffers/protobuf/archive/v3.9.2.zip",
+    ],
+)
+
+http_archive(
     name = "com_google_re2",
     sha256 = "d070e2ffc5476c496a6a872a6f246bfddce8e7797d6ba605a7c8d72866743bf9",
     strip_prefix = "re2-506cfa4bffd060c06ec338ce50ea3468daa6c814",

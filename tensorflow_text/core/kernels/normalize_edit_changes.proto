@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+package tensorflow.text;
+
+message NormalizationChanges {
+  message BatchChanges {
+    message Change {
+      optional int32 old_length = 1;
+      optional int32 new_length = 2;
+    }
+
+    repeated Change change = 1;
+  }
+
+  repeated BatchChanges batch_changes = 1;
+}
